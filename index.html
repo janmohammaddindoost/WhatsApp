@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>پیدا کردن واتساپ</title>
+
+<style>
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: radial-gradient(circle, #0f2027, #203a43, #2c5364);
+    font-family: Tahoma, sans-serif;
+}
+
+.frame {
+    border: 3px solid #00e676;
+    border-radius: 20px;
+    padding: 6px;
+}
+
+.container {
+    width: 100%;
+    max-width: 360px;
+    padding: 20px;
+    background: linear-gradient(135deg, #1c3b4a, #244f63);
+    border-radius: 16px;
+    color: white;
+    box-sizing: border-box;
+}
+
+.title {
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 6px;
+}
+
+.subtitle {
+    text-align: center;
+    font-size: 14px;
+    margin-bottom: 22px;
+    opacity: 0.9;
+}
+
+.label {
+    font-size: 14px;
+    margin-bottom: 6px;
+}
+
+.row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+select {
+    width: 35%;
+    padding: 12px;
+    border-radius: 10px;
+    border: none;
+    font-size: 14px;
+}
+
+input {
+    width: 65%;
+    padding: 12px;
+    border-radius: 10px;
+    border: none;
+    font-size: 15px;
+}
+
+button {
+    width: 100%;
+    padding: 14px;
+    border-radius: 14px;
+    border: none;
+    font-size: 16px;
+    font-weight: bold;
+    background: linear-gradient(135deg, #00e676, #00c853);
+    color: white;
+    cursor: pointer;
+}
+
+button:active {
+    transform: scale(0.98);
+}
+</style>
+</head>
+
+<body>
+
+<div class="frame">
+<div class="container">
+
+    <div class="title">نویسنده برنامه جان محمد دین دوست</div>
+    <div class="subtitle">برای پیدا کردن واتساپ دوستان تان شماره گیری کنید</div>
+
+    <div class="label">شماره واتساپ</div>
+
+    <div class="row">
+        <select id="countryCode">
+            <option value="98">🇮🇷 +98</option>
+            <option value="93">🇦🇫 +93</option>
+        </select>
+
+        <input type="tel" id="phone" placeholder="شماره را وارد کنید">
+    </div>
+
+    <button onclick="openWhatsApp()">✔️ تأیید کنید</button>
+
+</div>
+</div>
+
+<script>
+function openWhatsApp() {
+    var code = document.getElementById("countryCode").value;
+    var phone = document.getElementById("phone").value;
+
+    if (phone === "") {
+        alert("لطفاً شماره را وارد کنید");
+        return;
+    }
+
+    if (phone.startsWith("0")) {
+        phone = phone.substring(1);
+    }
+
+    var fullNumber = code + phone;
+    window.location.href = "https://wa.me/" + fullNumber;
+}
+</script>
+
+</body>
+</html>
