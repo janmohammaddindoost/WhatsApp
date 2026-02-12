@@ -3,126 +3,251 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>پیدا کردن واتساپ</title>
+<title>اتصال به واتساپ</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700;900&display=swap" rel="stylesheet">
 
 <style>
-body {
-    margin: 0;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: radial-gradient(circle, #0f2027, #203a43, #2c5364);
-    font-family: Tahoma, sans-serif;
-}
+    :root {
+        --wa-color: #25D366; /* رنگ اصلی واتساپ */
+        --bg-light: #f4f7f6; /* رنگ نزدیک به سفید برای پس زمینه */
+        --text-dark: #2c3e50;
+        --text-muted: #546e7a;
+    }
 
-.frame {
-    border: 3px solid #00e676;
-    border-radius: 20px;
-    padding: 6px;
-}
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: 'Vazirmatn', Tahoma, sans-serif;
+        -webkit-tap-highlight-color: transparent;
+    }
 
-.container {
-    width: 100%;
-    max-width: 360px;
-    padding: 20px;
-    background: linear-gradient(135deg, #1c3b4a, #244f63);
-    border-radius: 16px;
-    color: white;
-    box-sizing: border-box;
-}
+    body {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: var(--bg-light);
+        overflow: hidden;
+    }
 
-.title {
-    text-align: center;
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 6px;
-}
+    /* کادر اصلی با حاشیه رنگ گلابی و جگری */
+    .card-wrapper {
+        width: 92%;
+        max-width: 450px;
+        position: relative;
+        border-radius: 32px;
+        /* ترکیب رنگ گلابی (صورتی) و جگری (عنابی تیره) */
+        background: linear-gradient(135deg, #ff99cc, #8b0000);
+        padding: 5px; /* ضخامت خط دور کادر */
+        box-shadow: 0 15px 35px rgba(139, 0, 0, 0.2);
+    }
 
-.subtitle {
-    text-align: center;
-    font-size: 14px;
-    margin-bottom: 22px;
-    opacity: 0.9;
-}
+    .main-card {
+        background: #ffffff;
+        border-radius: 28px;
+        padding: 40px 30px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+    }
 
-.label {
-    font-size: 14px;
-    margin-bottom: 6px;
-}
+    /* تنظیمات عکس واتساپ و چرخش آن */
+    .icon-wrapper {
+        width: 75px;
+        height: 75px;
+        background-color: var(--wa-color);
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 0 8px 20px rgba(37, 211, 102, 0.4);
+        margin-bottom: 20px;
+        /* انیمیشن چرخش */
+        animation: spinIcon 4s linear infinite;
+    }
 
-.row {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 15px;
-}
+    .icon-wrapper svg {
+        width: 45px;
+        height: 45px;
+        fill: white;
+    }
 
-select {
-    width: 35%;
-    padding: 12px;
-    border-radius: 10px;
-    border: none;
-    font-size: 14px;
-}
+    .title {
+        color: var(--text-dark);
+        font-size: 24px;
+        font-weight: 900;
+        margin-bottom: 8px;
+        text-align: center;
+    }
 
-input {
-    width: 65%;
-    padding: 12px;
-    border-radius: 10px;
-    border: none;
-    font-size: 15px;
-}
+    .subtitle {
+        color: var(--text-muted);
+        font-size: 15px;
+        text-align: center;
+        margin-bottom: 30px;
+        line-height: 1.6;
+    }
 
-button {
-    width: 100%;
-    padding: 14px;
-    border-radius: 14px;
-    border: none;
-    font-size: 16px;
-    font-weight: bold;
-    background: linear-gradient(135deg, #00e676, #00c853);
-    color: white;
-    cursor: pointer;
-}
+    /* چیدمان کادرهای ورودی */
+    .input-row {
+        width: 100%;
+        display: flex;
+        gap: 10px;
+        margin-bottom: 25px;
+    }
 
-button:active {
-    transform: scale(0.98);
-}
+    /* کادر کد بین الملل با رنگ آسمانی */
+    select {
+        width: 35%;
+        background-color: #87CEEB; /* رنگ آسمانی */
+        color: #004d66;
+        border: 2px solid #87CEEB;
+        padding: 14px 5px;
+        font-size: 16px;
+        font-weight: bold;
+        border-radius: 14px;
+        outline: none;
+        cursor: pointer;
+        direction: ltr;
+        text-align: center;
+        appearance: none;
+        -webkit-appearance: none;
+        transition: transform 0.2s;
+    }
+
+    select:focus {
+        transform: scale(1.02);
+    }
+
+    /* کادر شماره گیری با رنگ متفاوت (کرمی/لیمویی بسیار ملایم) */
+    input {
+        width: 65%;
+        background-color: #fffde7; /* رنگ متفاوت و زیبا */
+        border: 2px solid #e0e0e0;
+        color: var(--text-dark);
+        padding: 14px 15px;
+        font-size: 17px;
+        border-radius: 14px;
+        outline: none;
+        letter-spacing: 1px;
+        transition: border-color 0.3s, box-shadow 0.3s;
+    }
+
+    input:focus {
+        border-color: #ff99cc; /* تغییر رنگ حاشیه موقع تایپ به رنگ گلابی */
+        box-shadow: 0 0 10px rgba(255, 153, 204, 0.2);
+    }
+
+    input::placeholder {
+        color: #9e9e9e;
+        font-size: 14px;
+    }
+
+    .btn-submit {
+        width: 100%;
+        background: var(--wa-color);
+        color: white;
+        border: none;
+        padding: 16px;
+        border-radius: 14px;
+        font-size: 18px;
+        font-weight: 900;
+        cursor: pointer;
+        transition: transform 0.2s, box-shadow 0.2s;
+        box-shadow: 0 8px 20px rgba(37, 211, 102, 0.3);
+    }
+
+    .btn-submit:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 25px rgba(37, 211, 102, 0.4);
+    }
+
+    .btn-submit:active {
+        transform: translateY(1px);
+    }
+
+    /* متن توسعه دهنده (درشت تر و با حالت چاپی) */
+    .author {
+        margin-top: 25px;
+        font-size: 16px; /* درشت تر */
+        font-weight: 900; /* ضخیم */
+        color: #8b0000; /* رنگ جگری برای همخوانی با حاشیه */
+        text-align: center;
+        /* استفاده از فونت های کلاسیک تر برای حس متن چاپی */
+        font-family: 'Courier New', Courier, 'Vazirmatn', serif; 
+        letter-spacing: 0.5px;
+        background: #ffebee;
+        padding: 8px 15px;
+        border-radius: 10px;
+        border: 1px dashed #8b0000;
+    }
+
+    #error-msg {
+        color: #d32f2f;
+        font-size: 14px;
+        margin-top: -15px;
+        margin-bottom: 15px;
+        text-align: center;
+        display: none;
+        font-weight: bold;
+    }
+
+    /* تعریف انیمیشن چرخش */
+    @keyframes spinIcon {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
 </style>
 </head>
 
 <body>
 
-<div class="frame">
-<div class="container">
+<div class="card-wrapper">
+    <div class="main-card">
+        
+        <div class="icon-wrapper">
+            <svg viewBox="0 0 24 24">
+                <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.274.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.099.824zm-3.423-14.416c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm.082 21.319c-1.543-.001-3.056-.407-4.381-1.179l-4.881 1.282 1.303-4.755c-.846-1.359-1.293-2.936-1.293-4.566.001-4.766 3.882-8.646 8.654-8.646 2.308.001 4.478.902 6.109 2.535s2.532 3.804 2.531 6.111c-.001 4.767-3.883 8.647-8.653 8.648z"/>
+            </svg>
+        </div>
 
-    <div class="title">نویسنده برنامه جان محمد دین دوست</div>
-    <div class="subtitle">برای پیدا کردن واتساپ دوستان تان شماره گیری کنید</div>
+        <h1 class="title">چت در واتساپ</h1>
+        <p class="subtitle">برای ارتباط مستقیم و سریع،<br>شماره واتساپ را وارد کنید</p>
 
-    <div class="label">شماره واتساپ</div>
+        <div class="input-row">
+            <select id="countryCode">
+                <option value="98">+98 🇮🇷</option>
+                <option value="93">+93 🇦🇫</option>
+            </select>
+            
+            <input type="tel" id="phone" placeholder="شماره موبایل..." autocomplete="off">
+        </div>
 
-    <div class="row">
-        <select id="countryCode">
-            <option value="98">🇮🇷 +98</option>
-            <option value="93">🇦🇫 +93</option>
-        </select>
+        <div id="error-msg">لطفاً شماره را وارد کنید!</div>
 
-        <input type="tel" id="phone" placeholder="شماره را وارد کنید">
+        <button class="btn-submit" onclick="openWhatsApp()">شروع گفتگو</button>
+
+        <div class="author">توسعه دهنده: جان محمد دین دوست</div>
     </div>
-
-    <button onclick="openWhatsApp()">✔️ تأیید کنید</button>
-
-</div>
 </div>
 
 <script>
 function openWhatsApp() {
     var code = document.getElementById("countryCode").value;
     var phone = document.getElementById("phone").value;
+    var errorMsg = document.getElementById("error-msg");
+
+    phone = phone.trim();
 
     if (phone === "") {
-        alert("لطفاً شماره را وارد کنید");
+        errorMsg.style.display = "block";
         return;
+    } else {
+        errorMsg.style.display = "none";
     }
 
     if (phone.startsWith("0")) {
@@ -130,8 +255,16 @@ function openWhatsApp() {
     }
 
     var fullNumber = code + phone;
-    window.location.href = "https://wa.me/" + fullNumber;
+    
+    document.querySelector('.btn-submit').style.transform = "scale(0.95)";
+    setTimeout(() => {
+        window.location.href = "https://wa.me/" + fullNumber;
+    }, 150);
 }
+
+document.getElementById("phone").addEventListener("input", function() {
+    document.getElementById("error-msg").style.display = "none";
+});
 </script>
 
 </body>
